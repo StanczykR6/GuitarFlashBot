@@ -12,7 +12,6 @@ YELLOW_KEY = 'd'
 BLUE_KEY = 'j'
 ORANGE_KEY = 'k'
 
-pressed = []
 keyboard = Controller()
 
 def guitarBot():
