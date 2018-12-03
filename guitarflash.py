@@ -5,7 +5,12 @@ import mss
 from PIL import Image
 import threading
 from pynput.keyboard import Key, Controller
-import time
+
+GREEN_KEY = 'a'
+RED_KEY = 's'
+YELLOW_KEY = 'd'
+BLUE_KEY = 'j'
+ORANGE_KEY = 'k'
 
 pressed = []
 keyboard = Controller()
@@ -16,7 +21,6 @@ def guitarBot():
     yellowPressed = False
     bluePressed = False
     orangePressed = False
-    #noteLoop()
 
     with mss.mss() as sct:
         monitor = {"top": 575, "left": 520, "width": 375, "height": 30}
@@ -24,7 +28,6 @@ def guitarBot():
 
     while(1):
         img = np.array(sct.grab(monitor))
-#        starpower = np.array(sct.grab(meter))
 
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
@@ -61,80 +64,55 @@ def guitarBot():
 
         for g in greenMask:
             if g.any() != 0 and not greenPressed:
-                #pressed.append('a')
-                keyboard.press('a')
+                keyboard.press(GREEN_KEY)
                 greenPressed = True
                 break
         else:
-            keyboard.release('a')
+            keyboard.release(GREEN_KEY)
             greenPressed = False
 
         for r in redMask:
             if r.any() != 0 and not redPressed:
-                #pressed.append('a')
-                keyboard.press('s')
+                keyboard.press(RED_KEY)
                 redPressed = True
                 break
         else:
-            keyboard.release('s')
+            keyboard.release(RED_KEY)
             redPressed = False
 
         for y in yellowMask:
             if y.any() != 0 and not yellowPressed:
-                #pressed.append('a')
-                keyboard.press('d')
+                keyboard.press(YELLOW_KEY)
                 yellowPressed = True
                 break
         else:
-            keyboard.release('d')
+            keyboard.release(YELLOW_KEY)
             yellowPressed = False
 
         for b in blueMask:
             if b.any() != 0 and not bluePressed:
-                #pressed.append('a')
-                keyboard.press('j')
+                keyboard.press(BLUE_KEY)
                 bluePressed = True
                 break
         else:
-            keyboard.release('j')
+            keyboard.release(BLUE_KEY)
             bluePressed = False
 
         for o in orangeMask:
             if o.any() != 0 and not orangePressed:
-                #pressed.append('a')
-                keyboard.press('k')
+                keyboard.press(ORANGE_KEY)
                 orangePressed = True
                 break
         else:
-            keyboard.release('k')
+            keyboard.release(ORANGE_KEY)
             orangePressed = False
 
         cv2.imshow('masked', res)
         cv2.imshow('screen', img)
-        #cv2.imshow('star power', starpower)
 
         k = cv2.waitKey(5) & 0xFF
         if k == 27:
             break
 
-def noteLoop():
-    threading.Timer(0.05, noteLoop).start()
-    if 'a' in pressed:
-        keyboard.press('a')
-
-    if 's' in pressed:
-        keyboard.press('s')
-
-    if 'd' in pressed:
-        keyboard.press('d')
-
-    if 'j' in pressed:
-        keyboard.press('j')
-
-    if 'k' in pressed:
-        keyboard.press('k')
-
-
 if __name__ == '__main__':
     guitarBot()
-    #guitarTest()
