@@ -8,9 +8,9 @@ from pynput.keyboard import Key, Controller
 
 GREEN_KEY = 'a'
 RED_KEY = 's'
-YELLOW_KEY = 'd'
-BLUE_KEY = 'j'
-ORANGE_KEY = 'k'
+YELLOW_KEY = 'j'
+BLUE_KEY = 'k'
+ORANGE_KEY = 'l'
 
 keyboard = Controller()
 
